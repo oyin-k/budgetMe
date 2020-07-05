@@ -9,12 +9,12 @@ const initialValues = {
   amount: '',
 };
 
-const AccountForm = () => {
+const AccountForm = ({ handleAccountItem }) => {
   const [values, setValues] = useState(initialValues);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(values);
+    handleAccountItem(values);
     setValues(initialValues);
     event.target.reset();
   };
