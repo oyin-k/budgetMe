@@ -14,11 +14,8 @@ const AccountForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    handleTypeUpdate(values);
-    calculateTotalIncome();
-
     setValues({ type, description, amount });
+    handleTypeUpdate(values);
     event.target.reset();
   };
 

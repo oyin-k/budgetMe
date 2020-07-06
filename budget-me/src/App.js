@@ -8,7 +8,6 @@ import Bottom from './components/Bottom/Bottom';
 import './App.css';
 
 const initialValues = {
-  budget: 0,
   totalIncome: 0,
   totalExpense: 0,
   type: 'inc',
@@ -23,25 +22,22 @@ const App = () => {
   const [expBudget, setExpBudget] = useState([]);
 
   const handleTypeUpdate = (value) => {
-    const type = value.type;
+    const { type, amount } = value;
+    let { totalIncome, totalExpense } = budgetState;
     value.id = uuidv4();
     if (type === 'inc') {
       setIncBudget([...incBudget, value]);
+      setBudgetState({
+        ...budgetState,
+        totalIncome: totalIncome + parseInt(amount),
+      }); //update the totalIncome here
     } else {
       setExpBudget([...expBudget, value]);
+      setBudgetState({
+        ...budgetState,
+        totalExpense: totalExpense + parseInt(amount),
+      }); //update the totalExpense here
     }
-    console.log({ incomes: incBudget }, { expenses: expBudget });
-  };
-
-  const calculateBudget = () => {};
-
-  const calculateTotalIncome = () => {
-    let sum = 0;
-    let { totalIncome } = budgetState;
-    incBudget.forEach((item) => (sum += parseInt(item.amount)));
-    totalIncome = sum;
-    setBudgetState({ ...budgetState, totalIncome });
-    console.log(sum);
   };
 
   return (
@@ -50,8 +46,6 @@ const App = () => {
 
       <Bottom
         budgetItems={budgetState}
-        calculateBudget={calculateBudget}
-        calculateTotalIncome={calculateTotalIncome}
         incBudget={incBudget}
         expBudget={expBudget}
         handleTypeUpdate={handleTypeUpdate}

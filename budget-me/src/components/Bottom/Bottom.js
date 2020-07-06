@@ -3,14 +3,8 @@ import React, { useState } from 'react';
 import AccountForm from '../AccountForm/AccountForm';
 import AccountItem from '../AccountItem/AccountItem';
 
-const Bottom = ({
-  budgetItems,
-  calculateTotalIncome,
-  incBudget,
-  expBudget,
-  handleTypeUpdate,
-}) => {
-  const { id, type, description, amount } = budgetItems;
+const Bottom = ({ budgetItems, incBudget, expBudget, handleTypeUpdate }) => {
+  const { id, type, description, amount, totalExpense } = budgetItems;
 
   return (
     <div className="bottom">
@@ -19,7 +13,6 @@ const Bottom = ({
         description={description}
         amount={amount}
         handleTypeUpdate={handleTypeUpdate}
-        calculateTotalIncome={calculateTotalIncome}
       />
       <div className="container clearfix">
         <div className="income">
@@ -41,16 +34,20 @@ const Bottom = ({
           <h2 className="expenses__title">Expenses</h2>
 
           <div className="expenses__list">
-            {expBudget.map((info) => (
-              <AccountItem
-                key={info.id}
-                id={info.id}
-                description={info.description}
-                amount={`- ${info.amount}`}
-              >
-                <div className="item__percentage">10%</div>
-              </AccountItem>
-            ))}
+            {expBudget.map((info) => {
+              // calculate individual percentage exp
+              const expPecent = Math.round((info.amount / totalExpense) * 100);
+              return (
+                <AccountItem
+                  key={info.id}
+                  id={info.id}
+                  description={info.description}
+                  amount={`- ${info.amount}`}
+                >
+                  <div className="item__percentage"> {expPecent}% </div>
+                </AccountItem>
+              );
+            })}
           </div>
         </div>
       </div>
