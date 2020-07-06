@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Top = () => {
+const Top = ({ budgetItems }) => {
+  const { budget, totalIncome, totalExpense, percentage } = budgetItems;
+
   return (
     <div className="top">
       <div className="budget">
@@ -9,12 +11,12 @@ const Top = () => {
           <span className="budget__title--month">%Month%</span>:
         </div>
 
-        <div className="budget__value">+ 2,345.64</div>
+        <div className="budget__value">+ {budget}</div>
 
         <div className="budget__income clearfix">
           <div className="budget__income--text">Income</div>
           <div className="right">
-            <div className="budget__income--value">+ 4,300.00</div>
+            <div className="budget__income--value">+ {totalIncome}</div>
             <div className="budget__income--percentage">&nbsp;</div>
           </div>
         </div>
@@ -22,8 +24,8 @@ const Top = () => {
         <div className="budget__expenses clearfix">
           <div className="budget__expenses--text">Expenses</div>
           <div className="right clearfix">
-            <div className="budget__expenses--value">- 1,954.36</div>
-            <div className="budget__expenses--percentage">45%</div>
+            <div className="budget__expenses--value">- {totalExpense}</div>
+            <div className="budget__expenses--percentage">{percentage}%</div>
           </div>
         </div>
       </div>

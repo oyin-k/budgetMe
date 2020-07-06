@@ -3,19 +3,22 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 
-const initialValues = {
-  account: 'inc',
-  description: '',
-  amount: '',
-};
-
-const AccountForm = ({ handleAccountItem }) => {
-  const [values, setValues] = useState(initialValues);
+const AccountForm = ({
+  type,
+  description,
+  amount,
+  handleTypeUpdate,
+  calculateTotalIncome,
+}) => {
+  const [values, setValues] = useState({ type, description, amount });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAccountItem(values);
-    setValues(initialValues);
+
+    handleTypeUpdate(values);
+    calculateTotalIncome();
+
+    setValues({ type, description, amount });
     event.target.reset();
   };
 
@@ -32,8 +35,8 @@ const AccountForm = ({ handleAccountItem }) => {
       <form className="add__container" onSubmit={handleSubmit}>
         <select
           className="add__type"
-          name="account"
-          value={values.account}
+          name="type"
+          value={values.type}
           onChange={handleChange}
         >
           <option value="inc">+</option>
