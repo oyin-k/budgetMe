@@ -5,12 +5,39 @@ import { formatNumber } from '../../helpers/formatNumber';
 const Top = ({ budgetItems }) => {
   const { totalIncome, totalExpense } = budgetItems;
 
-  const budget = totalIncome - totalExpense; //removing budget since it is not so important, you can just subtract income and expense
+  const budget = totalIncome - totalExpense;
 
   const totalExpensePercentage =
     totalExpense > 0 &&
     totalIncome > totalExpense &&
     Math.round((totalExpense / totalIncome) * 100);
+
+  const displayMonth = () => {
+    let now, date, month, months, year;
+
+    now = new Date();
+    month = now.getMonth();
+    year = now.getFullYear();
+
+    months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    date = months[month] + ' ' + year;
+
+    return date;
+  };
 
   let type;
   budget > 0 ? (type = 'inc') : (type = 'exp');
@@ -20,7 +47,7 @@ const Top = ({ budgetItems }) => {
       <div className="budget">
         <div className="budget__title">
           Available Budget in{' '}
-          <span className="budget__title--month">%Month%</span>:
+          <span className="budget__title--month">{displayMonth()}</span>:
         </div>
 
         <div className="budget__value">{formatNumber(budget, type)}</div>
