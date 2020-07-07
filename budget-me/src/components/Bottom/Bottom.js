@@ -3,6 +3,8 @@ import React from 'react';
 import AccountForm from '../AccountForm/AccountForm';
 import AccountItem from '../AccountItem/AccountItem';
 
+import { formatNumber } from '../../helpers/formatNumber';
+
 const Bottom = ({
   budgetItems,
   incBudget,
@@ -31,7 +33,7 @@ const Bottom = ({
                 key={info.id}
                 id={info.id}
                 description={info.description}
-                amount={'+' + info.amount}
+                amount={formatNumber(info.amount)}
                 deleteItem={handleIncomeDelete}
               />
             ))}
@@ -44,13 +46,15 @@ const Bottom = ({
           <div className="expenses__list">
             {expBudget.map((info) => {
               // calculate individual percentage exp
-              const expPercent = Math.round((info.amount / totalIncome) * 100);
+              const expPercent =
+                info.amount < totalIncome &&
+                Math.round((info.amount / totalIncome) * 100);
               return (
                 <AccountItem
                   key={info.id}
                   id={info.id}
                   description={info.description}
-                  amount={'-' + info.amount}
+                  amount={formatNumber(info.amount)}
                   deleteItem={handleExpenseDelete}
                 >
                   <div className="item__percentage"> {expPercent}% </div>
