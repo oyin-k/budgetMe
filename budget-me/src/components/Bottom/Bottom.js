@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import AccountForm from '../AccountForm/AccountForm';
 import AccountItem from '../AccountItem/AccountItem';
 
 const Bottom = ({
   budgetItems,
-  calculateTotalIncome,
   incBudget,
   expBudget,
   handleTypeUpdate,
+  handleIncomeDelete,
+  handleExpenseDelete,
 }) => {
-  const { id, type, description, amount } = budgetItems;
+  const { type, description, amount, totalIncome } = budgetItems;
 
   return (
     <div className="bottom">
@@ -19,7 +20,6 @@ const Bottom = ({
         description={description}
         amount={amount}
         handleTypeUpdate={handleTypeUpdate}
-        calculateTotalIncome={calculateTotalIncome}
       />
       <div className="container clearfix">
         <div className="income">
@@ -31,7 +31,8 @@ const Bottom = ({
                 key={info.id}
                 id={info.id}
                 description={info.description}
-                amount={`+ ${info.amount}`}
+                amount={'+' + info.amount}
+                deleteItem={handleIncomeDelete}
               />
             ))}
           </div>
@@ -41,16 +42,21 @@ const Bottom = ({
           <h2 className="expenses__title">Expenses</h2>
 
           <div className="expenses__list">
-            {expBudget.map((info) => (
-              <AccountItem
-                key={info.id}
-                id={info.id}
-                description={info.description}
-                amount={`- ${info.amount}`}
-              >
-                <div className="item__percentage">10%</div>
-              </AccountItem>
-            ))}
+            {expBudget.map((info) => {
+              // calculate individual percentage exp
+              const expPercent = Math.round((info.amount / totalIncome) * 100);
+              return (
+                <AccountItem
+                  key={info.id}
+                  id={info.id}
+                  description={info.description}
+                  amount={'-' + info.amount}
+                  deleteItem={handleExpenseDelete}
+                >
+                  <div className="item__percentage"> {expPercent}% </div>
+                </AccountItem>
+              );
+            })}
           </div>
         </div>
       </div>
