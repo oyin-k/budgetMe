@@ -3,10 +3,10 @@ import React from 'react';
 const Top = ({ budgetItems }) => {
   const { totalIncome, totalExpense, percentage } = budgetItems;
 
-  const budget = totalIncome - totalExpense;  //removing budget since it is not so important, you can just subtract income and expense
+  const budget = totalIncome - totalExpense; //removing budget since it is not so important, you can just subtract income and expense
 
   const totalExpensePercentage =
-    totalExpense > 0 && Math.round((totalExpense / budget) * 100);
+    totalExpense > 0 && Math.round((totalExpense / totalIncome) * 100);
 
   return (
     <div className="top">

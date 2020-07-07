@@ -40,6 +40,34 @@ const App = () => {
     }
   };
 
+  const handleIncomeDelete = (id, value) => {
+    let { totalIncome } = budgetState;
+    console.log(value);
+    let updatedIncomeState = incBudget.filter((item) => {
+      return item.id !== id;
+    });
+    setIncBudget(updatedIncomeState);
+    setBudgetState({
+      ...budgetState,
+      totalIncome: totalIncome - parseInt(value),
+    });
+  };
+  console.log(incBudget);
+
+  const handleExpenseDelete = (id, value) => {
+    let { totalExpense } = budgetState;
+
+    let updatedExpenseState = expBudget.filter((item) => {
+      return item.id !== id;
+    });
+    setExpBudget(updatedExpenseState);
+    setBudgetState({
+      ...budgetState,
+      totalExpense: totalExpense + parseInt(value),
+    });
+  };
+  // console.log(expBudget);
+
   return (
     <div className="App">
       <Top budgetItems={budgetState} />
@@ -49,6 +77,8 @@ const App = () => {
         incBudget={incBudget}
         expBudget={expBudget}
         handleTypeUpdate={handleTypeUpdate}
+        handleIncomeDelete={handleIncomeDelete}
+        handleExpenseDelete={handleExpenseDelete}
       />
     </div>
   );

@@ -3,13 +3,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 
-const AccountForm = ({
-  type,
-  description,
-  amount,
-  handleTypeUpdate,
-  calculateTotalIncome,
-}) => {
+const AccountForm = ({ type, description, amount, handleTypeUpdate }) => {
   const [values, setValues] = useState({ type, description, amount });
 
   const handleSubmit = (event) => {

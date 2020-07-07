@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import AccountForm from '../AccountForm/AccountForm';
 import AccountItem from '../AccountItem/AccountItem';
 
-const Bottom = ({ budgetItems, incBudget, expBudget, handleTypeUpdate }) => {
-  const { id, type, description, amount, totalExpense } = budgetItems;
+const Bottom = ({
+  budgetItems,
+  incBudget,
+  expBudget,
+  handleTypeUpdate,
+  handleIncomeDelete,
+  handleExpenseDelete,
+}) => {
+  const { type, description, amount, totalIncome } = budgetItems;
 
   return (
     <div className="bottom">
@@ -24,7 +31,8 @@ const Bottom = ({ budgetItems, incBudget, expBudget, handleTypeUpdate }) => {
                 key={info.id}
                 id={info.id}
                 description={info.description}
-                amount={`+ ${info.amount}`}
+                amount={'+' + info.amount}
+                deleteItem={handleIncomeDelete}
               />
             ))}
           </div>
@@ -36,15 +44,16 @@ const Bottom = ({ budgetItems, incBudget, expBudget, handleTypeUpdate }) => {
           <div className="expenses__list">
             {expBudget.map((info) => {
               // calculate individual percentage exp
-              const expPecent = Math.round((info.amount / totalExpense) * 100);
+              const expPercent = Math.round((info.amount / totalIncome) * 100);
               return (
                 <AccountItem
                   key={info.id}
                   id={info.id}
                   description={info.description}
-                  amount={`- ${info.amount}`}
+                  amount={'-' + info.amount}
+                  deleteItem={handleExpenseDelete}
                 >
-                  <div className="item__percentage"> {expPecent}% </div>
+                  <div className="item__percentage"> {expPercent}% </div>
                 </AccountItem>
               );
             })}
