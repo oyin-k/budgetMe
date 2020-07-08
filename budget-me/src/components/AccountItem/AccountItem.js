@@ -1,6 +1,15 @@
 import React from 'react';
 
-const AccountItem = ({ id, description, amount, children, deleteItem }) => {
+import { formatNumber } from '../../helpers/formatNumber';
+
+const AccountItem = ({
+  id,
+  type,
+  description,
+  amount,
+  children,
+  deleteItem,
+}) => {
   const handleDelete = () => {
     deleteItem(id, amount);
   };
@@ -9,7 +18,7 @@ const AccountItem = ({ id, description, amount, children, deleteItem }) => {
     <div className="item clearfix">
       <div className="item__description">{description}</div>
       <div className="right clearfix">
-        <div className="item__value">{amount}</div>
+        <div className="item__value">{formatNumber(amount, type)}</div>
         {children}
         <div className="item__delete">
           <button className="item__delete--btn" onClick={handleDelete}>

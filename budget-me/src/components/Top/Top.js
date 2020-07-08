@@ -40,7 +40,7 @@ const Top = ({ budgetItems }) => {
   };
 
   let type;
-  budget > 0 ? (type = 'inc') : (type = 'exp');
+  budget >= 0 ? (type = 'inc') : (type = 'exp');
 
   return (
     <div className="top">

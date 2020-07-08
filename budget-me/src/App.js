@@ -12,7 +12,7 @@ const initialValues = {
   totalExpense: 0,
   type: 'inc',
   description: '',
-  amount: null,
+  amount: 0,
   percentage: null,
 };
 
@@ -23,36 +23,36 @@ const App = () => {
 
   const handleTypeUpdate = (value) => {
     const { type, amount } = value;
+
     let { totalIncome, totalExpense } = budgetState;
     value.id = uuidv4();
     if (type === 'inc') {
       setIncBudget([...incBudget, value]);
       setBudgetState({
         ...budgetState,
-        totalIncome: totalIncome + parseInt(amount),
+        totalIncome: totalIncome + parseFloat(amount),
       }); //update the totalIncome here
     } else {
       setExpBudget([...expBudget, value]);
       setBudgetState({
         ...budgetState,
-        totalExpense: totalExpense + parseInt(amount),
+        totalExpense: totalExpense + parseFloat(amount),
       }); //update the totalExpense here
     }
   };
 
   const handleIncomeDelete = (id, value) => {
     let { totalIncome } = budgetState;
-    console.log(value);
+
     let updatedIncomeState = incBudget.filter((item) => {
       return item.id !== id;
     });
     setIncBudget(updatedIncomeState);
     setBudgetState({
       ...budgetState,
-      totalIncome: totalIncome - parseInt(value),
+      totalIncome: totalIncome - parseFloat(value),
     });
   };
-  console.log(incBudget);
 
   const handleExpenseDelete = (id, value) => {
     let { totalExpense } = budgetState;
@@ -63,10 +63,9 @@ const App = () => {
     setExpBudget(updatedExpenseState);
     setBudgetState({
       ...budgetState,
-      totalExpense: totalExpense + parseInt(value),
+      totalExpense: totalExpense - parseFloat(value),
     });
   };
-  // console.log(expBudget);
 
   return (
     <div className="App">
