@@ -14,7 +14,7 @@ const Bottom = ({
   const { type, description, amount, totalIncome } = budgetItems;
 
   return (
-    <div className="bottom">
+    <section className="section-bottom">
       <AccountForm
         type={type}
         description={description}
@@ -23,7 +23,7 @@ const Bottom = ({
       />
       <div className="container clearfix">
         <div className="income">
-          <h2 className="icome__title">Income</h2>
+          <h2 className="income__title">Income</h2>
 
           <div className="income__list">
             {incBudget.map((info) => {
@@ -67,7 +67,7 @@ const Bottom = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
